@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Archivio della memoria ritrovata</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+        header {
+            background-color: #333;
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+        main {
+            padding: 20px;
+            max-width: 1200px;
+            margin: 20px auto;
+            background-color: white;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .nav {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+        @media (min-width: 640px) {
+            .nav {
+                flex-direction: row;
+            }
+        }
+        .nav-item {
+            list-style: none;
+        }
+        .nav-link {
+            text-decoration: none;
+            color: #333;
+            font-size: 22px;
+        }
+        .nav-link.active {
+            font-weight: bold;
+        }
+        .search-bar {
+            display: none;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+        .search-bar.active {
+            display: flex;
+        }
+        .search-bar input, .search-bar select, .search-bar button {
+            padding: 10px;
+            font-size: 16px;
+        }
+        .search-bar input, .search-bar select {
+            flex: 1;
+        }
+        .search-bar button {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        .search-bar button:hover {
+            background-color: #45a049;
+        }
+        .results {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Archivio della memoria ritrovata</h1>
+    </header>
+    <main>
+        <ul class="nav flex flex-col sm:flex-row items-start mb-10">
+            <li class="nav-item">
+                <a class="nav-link nav-link-icon text-22px active" href="javascript:showSearch('documenti')">Ricerca documenti</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link nav-link-icon text-22px" href="javascript:showSearch('avanzata')">Ricerca avanzata</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link nav-link-icon text-22px" href="javascript:showSearch('temporale')">Ricerca temporale</a>
+            </li>
+        </ul>
+        
+        <div id="search-documenti" class="search-bar active">
+            <input type="text" placeholder="Cerca...">
+            <button>Cerca</button>
+        </div>
+
+        <div id="search-avanzata" class="search-bar">
+            <input type="text" placeholder="Ricerca Avanzata...">
+            <select>
+                <option value="">Seleziona Categoria</option>
+                <option value="percorso">Percorso</option>
+                <option value="tema">Tema</option>
+                <option value="persone">Persone</option>
+            </select>
+            <select>
+                <option value="">Seleziona Tipo di Media</option>
+                <option value="pdf">PDF</option>
+                <option value="foto">Foto</option>
+                <option value="video">Video</option>
+                <option value="mp3">MP3</option>
+            </select>
+            <button>Cerca</button>
+        </div>
+
+        <div id="search-temporale" class="search-bar">
+            <input type="date" placeholder="Data Inizio">
+            <input type="date" placeholder="Data Fine">
+            <button>Cerca</button>
+        </div>
+        
+        <div class="results" id="results">
+            <!-- Risultati della ricerca appariranno qui -->
+        </div>
+    </main>
+    <script>
+        function showSearch(type) {
+            document.getElementById('search-documenti').classList.remove('active');
+            document.getElementById('search-avanzata').classList.remove('active');
+            document.getElementById('search-temporale').classList.remove('active');
+            
+            if (type === 'documenti') {
+                document.getElementById('search-documenti').classList.add('active');
+            } else if (type === 'avanzata') {
+                document.getElementById('search-avanzata').classList.add('active');
+            } else if (type === 'temporale') {
+                document.getElementById('search-temporale').classList.add('active');
+            }
+            
+            document.querySelectorAll('.nav-link').forEach(link => {
+                link.classList.remove('active');
+            });
+
+            document.querySelector(`.nav-link[href="javascript:showSearch('${type}')"]`).classList.add('active');
+        }
+    </script>
+</body>
+</html>
